@@ -1,0 +1,21 @@
+{
+  "redis": {
+    "host": "192.168.5.220",
+    "port": 16379,
+    "pass": "eXlwcmlzb25lckBnbWFpbC5jb20=",
+    "timeout": 5000,
+    "database": 0
+  },
+  "error_page": {
+    "404": "/usr/local/openresty/nginx/html/404.html"
+  },
+  "origin_allow": ["*"],
+  "blacklist": {
+    "refresh_at": 1800,
+    "expire_at": 604800
+  },
+  "ip404count": {
+    "expire_at": 60,
+    "trigger_forbidden_count": 20
+  }
+}

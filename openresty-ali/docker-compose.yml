@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    openrestry-gateway:
+        image: openresty/openresty
+        ports:
+            - "80:80"
+        networks:
+            - openresty-net
+        volumes:
+            - "../lua:/home/lua"
+            - "../html:/usr/local/openresty/nginx/html"
+            - "../nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+            - "../logs:/var/log/nginx"
+            - "./conf.d:/etc/nginx/conf.d"
+        environment:
+            - TZ=Asia/Shanghai
+        restart: always
+        privileged: true
+
+networks:
+    openresty-net:
+        driver: bridge
