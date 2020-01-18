@@ -4,14 +4,14 @@ services:
     openrestry-gateway:
         image: openresty/openresty
         ports:
-            - "80:80"
+            - "8080:80"
         networks:
             - openresty-net
         volumes:
-            - "../lua:/home/lua"
-            - "../html:/usr/local/openresty/nginx/html"
-            - "../nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
-            - "../logs:/var/log/nginx"
+            - "./html:/usr/local/openresty/nginx/html"
+            - "./lua:/usr/local/openresty/nginx/lua"
+            - "./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+            - "./logs:/var/log/nginx"
             - "./conf.d:/etc/nginx/conf.d"
         environment:
             - TZ=Asia/Shanghai
