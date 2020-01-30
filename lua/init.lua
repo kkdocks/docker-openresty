@@ -47,6 +47,7 @@ end
 
 local function load_auto_ssl()
     auto_ssl:set("allow_domain", function(domain)
+        ngx.log(ngx.ERR, "inti.lua - load_auto_ssl: allow_domain / domain => " .. domain)
         return true
     end)
 
