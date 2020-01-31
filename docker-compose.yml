@@ -2,7 +2,7 @@ version: '3'
 
 services:
     openrestry-gateway:
-        image: demo
+        image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
             - "8080:80"
         networks:

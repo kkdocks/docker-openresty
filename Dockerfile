@@ -64,7 +64,6 @@ RUN set -eux; \
         apk add --no-cache --virtual .build-deps \
         build-base \
         coreutils \
-        curl \
         gd-dev \
         geoip-dev \
         libxslt-dev \
@@ -75,8 +74,6 @@ RUN set -eux; \
         zlib-dev \
         tzdata \
         unzip \
-        bash \
-        openssl \
         ${RESTY_ADD_PACKAGE_BUILDDEPS} \
     && apk add --no-cache \
         gd \
@@ -84,6 +81,9 @@ RUN set -eux; \
         libgcc \
         libxslt \
         zlib \
+        curl \
+        bash \
+        openssl \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
