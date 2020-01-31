@@ -4,7 +4,7 @@ services:
     openrestry-gateway:
         image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
-            - "8080:80"
+            - "80:80"
             - "8999:8999"
         networks:
             - openresty-net
