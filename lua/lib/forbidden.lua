@@ -8,12 +8,12 @@
 
 local ip_blacklist = require('ipblacklist')
 
-local client_ip = tool.getClientIp()
+local client_ip = utils.get_client_ip()
 if not client_ip then
     return
 end
 
-local exists = lua_blacklist:get(client_ip)
+local exists = global_ip_blacklist:get(client_ip)
 if nil ~= exists then
     local bool = ip_blacklist.blacklist_remove(client_ip)
     if not bool then

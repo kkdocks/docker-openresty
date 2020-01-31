@@ -18,13 +18,13 @@ local function ip_tmp_incr_cache_key(client_ip)
 end
 
 if ngx.HTTP_NOT_FOUND == ngx.status then
-    local client_ip = tool.getClientIp()
+    local client_ip = utils.get_client_ip()
     if client_ip then
         local key = ip_tmp_incr_cache_key(client_ip)
         local curr_incr_num
-        curr_incr_num, err = lua_ip_tmp:get(key)
+        curr_incr_num, err = global_ip_count:get(key)
         if nil == curr_incr_num then
-            ok, err = lua_ip_tmp:set(key, 1, lua_config:get("ip404count.expire_at"))
+            ok, err = global_ip_count:set(key, 1, global_config:get("ip404count.expire_at"))
             if not ok then
                 ngx.log(ngx.ERR,
                         "[404.lua] line: " ..
@@ -34,8 +34,8 @@ if ngx.HTTP_NOT_FOUND == ngx.status then
                 )
             end
         else
-            if curr_incr_num < lua_config:get("ip404count.trigger_forbidden_count") then
-                ok, err = lua_ip_tmp:incr(key, 1)
+            if curr_incr_num < global_config:get("ip404count.trigger_forbidden_count") then
+                ok, err = global_ip_count:incr(key, 1)
                 if err ~= nil then
                     ngx.log(ngx.ERR,
                             "[404.lua] line: " ..
@@ -47,7 +47,7 @@ if ngx.HTTP_NOT_FOUND == ngx.status then
             else
                 --- append redis & blacklist
                 ip_blacklist.blacklist_append(client_ip)
-                lua_blacklist:set(client_ip, true)
+                global_ip_blacklist:set(client_ip, true)
                 return ngx.exit(403);
             end
         end
@@ -58,6 +58,6 @@ end
 
 ngx.header.content_type = "text/html; charset=UTF-8";
 ngx.status = 404
-return ngx.say(tool.file_get_contents(
-    lua_config:get("error_page.404")
+return ngx.say(utils.file_get_contents(
+    global_config:get("error_page.404")
 ));

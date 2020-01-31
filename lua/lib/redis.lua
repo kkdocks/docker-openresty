@@ -16,10 +16,10 @@ local pool_max_free_time = 10000; --- 10s
 function M.connection()
     local redis = resty_redis:new()
 
-    redis:set_timeout(lua_config:get("redis.timeout"));
+    redis:set_timeout(global_config:get("redis.timeout"));
 
     local ok, err;
-    ok, err = redis:connect(lua_config:get("redis.host"), lua_config:get("redis.port"))
+    ok, err = redis:connect(global_config:get("redis.host"), global_config:get("redis.port"))
     if not ok then
         ngx.log(ngx.ERR, "[redis.lua] failed to connent redis: " .. err)
         return nil
@@ -28,7 +28,7 @@ function M.connection()
     local used
     used, err = redis:get_reused_times()
     if 0 == used then
-        ok, err = redis:auth(lua_config:get("redis.pass"))
+        ok, err = redis:auth(global_config:get("redis.pass"))
         if not ok then
             ngx.log(ngx.ERR, "[redis.lua] failed to auth redis: " .. err)
             return nil
@@ -38,7 +38,7 @@ function M.connection()
         return nil
     end
 
-    redis:select(lua_config:get("redis.database"))
+    redis:select(global_config:get("redis.database"))
 
     return redis;
 end

@@ -143,8 +143,6 @@ RUN set -eux; \
     && ln -s /usr/local/openresty/luajit/bin/luarocks /usr/local/bin/ \
     && echo ">>>>>>>>>>>>>>>>>>> install lua-resty-auto-ssl " \
     && luarocks install lua-resty-auto-ssl --tree=/usr/local/openresty/luajit \
-    # /usr/local/openresty/lualib/resty/share/lua/5.1
-    # /usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl.lua
     && mkdir /etc/resty-auto-ssl && chown www-data /etc/resty-auto-ssl \
     && echo ">>>>>>>>>>>>>>>>>>> 生成自签证书 " \
     && openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \

@@ -9,7 +9,7 @@
 local M = {}
 M.__version = '1.0'
 
-function M.getClientIp()
+function M.get_client_ip()
     local request_headers = ngx.req.get_headers();
     return request_headers["X-REAL-IP"] or request_headers["X_FORWARDED_FOR"] or ngx.var.remote_addr or nil;
 end

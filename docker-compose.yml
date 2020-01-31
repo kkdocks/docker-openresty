@@ -5,11 +5,13 @@ services:
         image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
             - "8080:80"
+            - "8999:8999"
         networks:
             - openresty-net
         volumes:
             - "./html:/usr/local/openresty/nginx/html"
             - "./lua:/usr/local/openresty/nginx/lua"
+            - "./ssl:/etc/resty-auto-ssl"
             - "./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
             - "./logs:/var/log/nginx"
             - "./conf.d:/etc/nginx/conf.d"

@@ -17,10 +17,10 @@ local function load_config()
 
     local config_file_name = "config.json"
     local dirname = string.match(
-            string.sub(debug.getinfo(1, 'S').source, 2, -1), "^.*/"
+        string.sub(debug.getinfo(1, 'S').source, 2, -1), "^.*/"
     )
 
-    local config_file = dirname .. "../" .. config_file_name
+    local config_file = dirname .. "/" .. config_file_name
 
     if not utils.file_exists(config_file) then
         ngx.log(ngx.ERR, "config not exists.")
@@ -28,7 +28,7 @@ local function load_config()
     end
 
     local config = cjson.decode(
-            utils.file_get_contents(config_file)
+        utils.file_get_contents(config_file)
     )
 
     for item_name, value in pairs(config) do
@@ -48,9 +48,10 @@ end
 local function load_auto_ssl()
     auto_ssl:set("allow_domain", function(domain)
         ngx.log(ngx.ERR, "inti.lua - load_auto_ssl: allow_domain / domain => " .. domain)
-        return true
+        return ngx.re.match(domain, "^(nekoimi.com|sakuraio.com|403forbidden.run)$", "ijo")
     end)
 
+--    auto_ssl:set("dir", "/tmp")
     auto_ssl:init()
 end
 

@@ -18,9 +18,9 @@ function M.refresh_blacklist()
     if redis then
         local blacklist = redis:smembers(blacklist_key)
         if blacklist then
-            lua_blacklist:flush_all()
+            global_ip_blacklist:flush_all()
             for _, ip_address in pairs(blacklist) do
-                lua_blacklist:set(ip_address, true)
+                global_ip_blacklist:set(ip_address, true)
             end
         end
     end
@@ -46,7 +46,7 @@ end
 function M.blacklist_append(client_ip)
     local redis = redis_factory.connection()
     if redis and redis:sadd(blacklist_key, client_ip) > 0 then
-        redis:setex(blacklist_ip_expire_key .. client_ip, lua_config:get("blacklist.expire_at"), client_ip)
+        redis:setex(blacklist_ip_expire_key .. client_ip, global_config:get("blacklist.expire_at"), client_ip)
     end
     redis_factory.destruct(redis)
 end
