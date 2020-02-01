@@ -9,8 +9,10 @@
 global_config = ngx.shared.lua_shared_config
 global_ip_count = ngx.shared.lua_shared_ip_count
 global_ip_blacklist = ngx.shared.lua_shared_ip_blacklist
-auto_ssl = require("resty.auto-ssl"):new()
+
+resty_auto_ssl = require("resty.auto-ssl"):new()
 utils = require("utils")
+
 local cjson = require("cjson")
 
 local function load_config()
@@ -45,15 +47,16 @@ local function load_config()
 
 end
 
-local function load_auto_ssl()
-    auto_ssl:set("allow_domain", function(domain)
-        ngx.log(ngx.ERR, "inti.lua - load_auto_ssl: allow_domain / domain => " .. domain)
-        return ngx.re.match(domain, "^(nekoimi.com|sakuraio.com|403forbidden.run)$", "ijo")
+local function load_resty_auto_ssl()
+    resty_auto_ssl:set("allow_domain", function(domain)
+        ngx.log(ngx.ERR, "init_by_lua_block: allow_domain / domain => " .. domain)
+        return true
+        -- return ngx.re.match(domain, "^(nekoimi.com|sakuraio.com|403forbidden.run)$", "ijo")
     end)
 
---    auto_ssl:set("dir", "/tmp")
-    auto_ssl:init()
+    resty_auto_ssl:init()
 end
 
 load_config()
-load_auto_ssl()
+-- resty auto ssl
+load_resty_auto_ssl()

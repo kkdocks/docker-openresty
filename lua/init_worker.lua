@@ -31,4 +31,5 @@ local function cron_refresh_blacklist()
 end
 
 cron_refresh_blacklist()
-auto_ssl:init_worker()
+
+resty_auto_ssl:init_worker()
