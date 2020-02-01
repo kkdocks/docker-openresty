@@ -32,4 +32,4 @@ end
 
 cron_refresh_blacklist()
 
-resty_auto_ssl:init_worker()
+--resty_auto_ssl:init_worker()

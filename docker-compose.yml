@@ -5,7 +5,6 @@ services:
         image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
             - "80:80"
-            - "8999:8999"
         networks:
             - openresty-net
         volumes:

@@ -10,7 +10,7 @@ global_config = ngx.shared.lua_shared_config
 global_ip_count = ngx.shared.lua_shared_ip_count
 global_ip_blacklist = ngx.shared.lua_shared_ip_blacklist
 
-resty_auto_ssl = require("resty.auto-ssl"):new()
+--resty_auto_ssl = require("resty.auto-ssl"):new()
 utils = require("utils")
 
 local cjson = require("cjson")
@@ -59,4 +59,4 @@ end
 
 load_config()
 -- resty auto ssl
-load_resty_auto_ssl()
+--load_resty_auto_ssl()
