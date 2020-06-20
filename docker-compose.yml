@@ -8,6 +8,8 @@ services:
             - "443:443"
         networks:
             - gateway-net
+        environment:
+            ALLOW_SSL_DOMAIN: "gitneko.com"
         volumes:
             - "./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
             - "./conf.d/http:/usr/local/openresty/nginx/conf/http"
