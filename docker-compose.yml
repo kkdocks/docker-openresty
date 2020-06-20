@@ -1,24 +1,21 @@
-version: '3'
-
+version: "3"
 services:
-    openrestry-gateway:
+
+    gateway:
         image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
             - "80:80"
+            - "443:443"
         networks:
-            - openresty-net
+            - gateway-net
         volumes:
-            - "./html:/usr/local/openresty/nginx/html"
-            - "./lua:/usr/local/openresty/nginx/lua"
-            - "./ssl:/etc/resty-auto-ssl"
             - "./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
-            - "./logs:/var/log/nginx"
-            - "./conf.d:/etc/nginx/conf.d"
-        environment:
-            - TZ=Asia/Shanghai
+            - "./conf.d/http:/usr/local/openresty/nginx/conf/http"
+            - "./conf.d/stream:/usr/local/openresty/nginx/conf/stream"
+            - "./html:/usr/local/openresty/nginx/html"
+            - "./ssl:/etc/resty-auto-ssl"
         restart: always
-        privileged: true
 
 networks:
-    openresty-net:
+    gateway-net:
         driver: bridge

@@ -10,7 +10,7 @@ global_config = ngx.shared.lua_shared_config
 global_ip_count = ngx.shared.lua_shared_ip_count
 global_ip_blacklist = ngx.shared.lua_shared_ip_blacklist
 
---resty_auto_ssl = require("resty.auto-ssl"):new()
+resty_auto_ssl = require("resty.auto-ssl"):new()
 utils = require("utils")
 
 local cjson = require("cjson")
@@ -53,6 +53,8 @@ local function load_resty_auto_ssl()
         return true
         -- return ngx.re.match(domain, "^(nekoimi.com|sakuraio.com|403forbidden.run)$", "ijo")
     end)
+
+    resty_auto_ssl:set("hook_server_port", 29999)
 
     resty_auto_ssl:init()
 end

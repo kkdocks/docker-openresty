@@ -1,6 +1,1 @@
 /.idea
-logs/
-html/www/*
-ssl/letsencrypt/*
-ssl/storage/*
-ssl/tmp/*
