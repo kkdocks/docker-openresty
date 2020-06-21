@@ -1,24 +1,24 @@
 version: "3"
-services:
 
+services:
     gateway:
         image: registry.cn-shenzhen.aliyuncs.com/nekoimi/openresty
         ports:
             - "80:80"
             - "443:443"
         networks:
-            - gateway-net
+            - gateway-network
         environment:
-            ALLOW_SSL_DOMAIN: "gitneko.com"
+            ALLOW_SSL_DOMAIN: ""
         volumes:
             - "./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
             - "./conf.d/http:/usr/local/openresty/nginx/conf/http"
             - "./conf.d/stream:/usr/local/openresty/nginx/conf/stream"
             - "./html:/usr/local/openresty/nginx/html"
-            - "./ssl:/etc/resty-auto-ssl"
             - "./logs:/usr/local/openresty/nginx/logs"
+            - "./ssl:/etc/resty-auto-ssl"
         restart: always
 
 networks:
-    gateway-net:
+    gateway-network:
         driver: bridge
