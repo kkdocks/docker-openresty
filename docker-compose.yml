@@ -16,6 +16,7 @@ services:
             - "./conf.d/stream:/usr/local/openresty/nginx/conf/stream"
             - "./html:/usr/local/openresty/nginx/html"
             - "./ssl:/etc/resty-auto-ssl"
+            - "./logs:/usr/local/openresty/nginx/logs"
         restart: always
 
 networks:
