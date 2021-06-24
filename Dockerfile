@@ -1,6 +1,6 @@
 FROM alpine:3.11
 
-LABEL maintainer="Nekoimi <nekoimime@gmail.com>"
+LABEL maintainer="nekoimi <nekoimime@gmail.com>"
 
 ARG RESTY_VERSION="1.15.8.3"
 ARG RESTY_OPENSSL_VERSION="1.1.1g"
@@ -54,10 +54,8 @@ ARG _RESTY_CONFIG_DEPS="--with-pcre \
     "
 
 RUN set -eux; \
-        echo ">>>>>>>>>>>>>>>>>>>>>>>>>> 添加 www-data " ; \
     	addgroup -g 82 -S www-data; \
     	adduser -u 82 -D -S -G www-data www-data ; \
-    	echo ">>>>>>>>>>>>>>>>>>>>>>>>>> 更换国内源 " ; \
     	sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories ; \
     	apk update ; \
         apk add --no-cache --virtual .build-deps \
